@@ -3,7 +3,11 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+const connectDB = require('./config/db');
+
 const app = express();
+
+connectDB();
 
 app.use(cors({
   origin: 'http://localhost:5173',
