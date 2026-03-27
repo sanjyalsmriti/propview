@@ -1,8 +1,14 @@
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
 function App() {
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h1>Buyer Portal</h1>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="*" element={<Navigate to="/login" />} />
+    </Routes>
   );
 }
 
