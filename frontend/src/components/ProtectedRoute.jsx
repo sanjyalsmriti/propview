@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import LoadingSpinner from './LoadingSpinner';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <p style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</p>;
+  if (loading) return <LoadingSpinner label="Checking session..." />;
   if (!user) return <Navigate to="/login" />;
 
   return children;

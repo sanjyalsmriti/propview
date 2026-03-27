@@ -21,7 +21,11 @@ function Register() {
       await register(name, email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Something went wrong');
+      const msg = err.response?.data?.msg;
+      setError(
+        msg ||
+          (err.code === 'ERR_NETWORK' ? 'Cannot reach server' : 'Something went wrong')
+      );
     } finally {
       setSubmitting(false);
     }
@@ -38,6 +42,7 @@ function Register() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          disabled={submitting}
         />
         <input
           type="email"
@@ -45,6 +50,7 @@ function Register() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={submitting}
         />
         <input
           type="password"
@@ -52,6 +58,7 @@ function Register() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          disabled={submitting}
         />
         <button type="submit" disabled={submitting}>
           {submitting ? 'Creating account...' : 'Register'}

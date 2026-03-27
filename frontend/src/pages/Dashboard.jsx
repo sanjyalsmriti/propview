@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios';
 import Navbar from '../components/Navbar';
 import PropertyCard from '../components/PropertyCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 import './Dashboard.css';
 
 const PROPERTIES = [
@@ -64,7 +65,11 @@ function Dashboard() {
       const { data } = await api.get('/favourites');
       setFavourites(data);
     } catch (e) {
-      setError(e.response?.data?.msg || 'Could not load favourites');
+      const msg = e.response?.data?.msg;
+      setError(
+        msg ||
+          (e.code === 'ERR_NETWORK' ? 'Cannot reach server' : 'Could not load favourites')
+      );
     } finally {
       setLoading(false);
     }
@@ -101,7 +106,10 @@ function Dashboard() {
       }
       await loadFavourites();
     } catch (e) {
-      setError(e.response?.data?.msg || 'Something went wrong');
+      const msg = e.response?.data?.msg;
+      setError(
+        msg || (e.code === 'ERR_NETWORK' ? 'Cannot reach server' : 'Something went wrong')
+      );
     } finally {
       setBusyId(null);
     }
@@ -119,6 +127,7 @@ function Dashboard() {
             type="button"
             className={tab === 'all' ? 'dashboard-tab dashboard-tab--active' : 'dashboard-tab'}
             onClick={() => setTab('all')}
+            disabled={loading || !!busyId}
           >
             All Properties
           </button>
@@ -128,6 +137,7 @@ function Dashboard() {
               tab === 'favs' ? 'dashboard-tab dashboard-tab--active' : 'dashboard-tab'
             }
             onClick={() => setTab('favs')}
+            disabled={loading || !!busyId}
           >
             My Favourites
           </button>
@@ -136,20 +146,23 @@ function Dashboard() {
         {error && <p className="dashboard-error">{error}</p>}
 
         {loading ? (
-          <p className="dashboard-loading">Loading...</p>
+          <LoadingSpinner label="Loading favourites..." />
         ) : tab === 'favs' && visibleProps.length === 0 ? (
           <p className="dashboard-empty">No favourites yet</p>
         ) : (
-          <div className="dashboard-grid">
-            {visibleProps.map((p) => (
-              <PropertyCard
-                key={p.id}
-                property={p}
-                isFav={!!favByPropertyId[p.id]}
-                busy={busyId === p.id}
-                onToggle={onToggle}
-              />
-            ))}
+          <div className={`dashboard-grid-wrap${busyId ? ' dashboard-grid-wrap--busy' : ''}`}>
+            {busyId && <p className="dashboard-saving">Saving...</p>}
+            <div className="dashboard-grid">
+              {visibleProps.map((p) => (
+                <PropertyCard
+                  key={p.id}
+                  property={p}
+                  isFav={!!favByPropertyId[p.id]}
+                  busy={busyId === p.id}
+                  onToggle={onToggle}
+                />
+              ))}
+            </div>
           </div>
         )}
       </main>

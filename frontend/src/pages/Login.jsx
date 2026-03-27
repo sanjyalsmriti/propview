@@ -20,7 +20,11 @@ function Login() {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Something went wrong');
+      const msg = err.response?.data?.msg;
+      setError(
+        msg ||
+          (err.code === 'ERR_NETWORK' ? 'Cannot reach server' : 'Something went wrong')
+      );
     } finally {
       setSubmitting(false);
     }
@@ -37,6 +41,7 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={submitting}
         />
         <input
           type="password"
@@ -44,6 +49,7 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          disabled={submitting}
         />
         <button type="submit" disabled={submitting}>
           {submitting ? 'Logging in...' : 'Login'}

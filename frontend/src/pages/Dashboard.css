@@ -51,6 +51,11 @@
   background: #3a7bc8;
 }
 
+.dashboard-tab:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .dashboard-error {
   background: #fee;
   color: #c33;
@@ -60,10 +65,19 @@
   font-size: 14px;
 }
 
-.dashboard-loading {
-  text-align: center;
+.dashboard-grid-wrap {
+  position: relative;
+}
+
+.dashboard-grid-wrap--busy {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.dashboard-saving {
+  font-size: 13px;
   color: #666;
-  padding: 40px;
+  margin: 0 0 10px;
 }
 
 .dashboard-empty {
