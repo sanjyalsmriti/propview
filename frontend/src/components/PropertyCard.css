@@ -1,0 +1,72 @@
+.property-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+}
+
+.property-card-img-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #e8e8e8;
+}
+
+.property-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.property-card-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+}
+
+.property-card-heart:hover:not(:disabled) {
+  background: #fff;
+}
+
+.property-card-heart--on {
+  color: #e53935;
+}
+
+.property-card-heart:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.property-card-body {
+  padding: 14px 16px 16px;
+}
+
+.property-card-body h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+.property-card-loc {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px;
+}
+
+.property-card-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin: 0;
+}
