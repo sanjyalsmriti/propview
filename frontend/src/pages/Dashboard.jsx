@@ -19,7 +19,7 @@ const PROPERTIES = [
     title: 'Cozy Townhouse',
     location: 'Mississauga, ON',
     price: 725000,
-    image: 'https://images.unsplash.com/photo-1580587771525-2b1e5e5469b7?w=600&h=450&fit=crop'
+    image: 'https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     id: 'p3',
